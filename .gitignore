@@ -1,4 +1,5 @@
 .idea/
+codebase/
 node_modules/
 *.log
 dist/
