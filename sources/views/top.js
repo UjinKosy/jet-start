@@ -6,7 +6,6 @@ export default class TopView extends JetView {
 			view: "template", 
 			type: "header",
 			localId: "header",
-			paddingY: 100,
 			template: "#page#", 
 			css: "webix_header app_header",
 			data:[

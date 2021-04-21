@@ -1,8 +1,8 @@
-.contacts{
+.contacts-list{
     display: flex;
     align-items: center;
 }
-.contacts_photo{
+.contacts-list_photo{
     height: 45px;
     width: 45px;
     font-size: 40px;
@@ -12,17 +12,85 @@
     line-height: 45px;
     overflow: hidden;
 }
-.contacts_info{
+.contacts-list_info{
     padding-left: 20px;
     display: flex;
     flex-direction: column;
 }
-.contacts_name{
+.contacts-list_name{
     font-weight: bold;
     font-size: 16px;
     margin-bottom: -10px;
 }
-.contacts_company{
+.contacts-list_company{
     font-size: 12px;
     font-style: italic;
+}
+
+.contacts-template_name{
+    font-size: 26px;
+    padding: 0 0 0 10px;
+    font-weight: 500;
+}
+
+.contacts-template{
+    display: flex;
+    flex-direction: column;
+
+}
+.contacts-template_first-row{
+    padding-top: 30px;
+}
+.contacts-template_second-row{
+    display: flex;
+    align-items: center;
+}
+.contacts-template_photo{
+    width: 150px;
+    height: 150px;
+    border: 2px solid #475466;
+    margin-right: 60px;
+    font-size: 150px;
+    text-align: center;
+    line-height: 45px;
+    overflow: hidden;
+}
+.contacts-template_info{
+    display: flex;
+    font-size: 16px;
+    height: 100%;
+
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+.contacts-template_info ul{
+    list-style-type: none;
+    padding: 0;
+}
+.contacts-template_info ul li:nth-of-type(2n){
+    margin: 20px 0;
+    
+}
+.contacts-template_info span{
+    width: 20px;
+    margin-right: 10px;
+}
+.contacts-template_status{
+    padding-left: 70px;
+}
+
+button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #475466 !important;
+    border: 1px solid #475466 !important;
+    border-radius: 5px !important;
+    background-color: transparent !important;
+}
+
+button .webix_icon_btn{
+    font-size: 16px;
+    color: #475466 !important;
 }

@@ -1,5 +1,6 @@
 import {JetView} from "webix-jet";
-import {contacts} from "../models/contacts.js"
+import {contacts} from "../models/contacts.js";
+import ContactsTemplate from "./contacts-template.js";
 
 export default class ContactsView extends JetView {
 	config() {
@@ -12,15 +13,15 @@ export default class ContactsView extends JetView {
             width: 300,
             select: true,
             template: function(obj){
-                return `<div class="contacts">
-                            <span class="contacts_photo">
+                return `<div class="contacts-list">
+                            <span class="contacts-list_photo">
                                 ${obj.Photo && `<img src="${obj.Photo}" width="50">` || "<span class=\"far fa-user\"></span>"}
                             </span>
-                            <div class="contacts_info">
-                                <span class="contacts_name">
+                            <div class="contacts-list_info">
+                                <span class="contacts-list_name">
                                     ${obj.FirstName} ${obj.LastName}
                                 </span>
-                                <span class="contacts_company">
+                                <span class="contacts-list_company">
                                     ${obj.Company}
                                 </span>
                             </div>
@@ -33,10 +34,15 @@ export default class ContactsView extends JetView {
             }
         }
 
-        return contactsList
+        const ui = {
+            cols:[
+                contactsList,
+                ContactsTemplate
+            ]
+        }
+        return ui
     }
     init(){
-        console.log(contacts)
         this.contactsList = this.$$("contactsList");
         contacts.waitData.then(()=>{
             this.contactsList.sync(contacts);
@@ -49,7 +55,6 @@ export default class ContactsView extends JetView {
 				this.contactsList.select(id);
 			}
 			else{
-                console.log(contacts.getFirstId())
 				this.contactsList.select(contacts.getFirstId());
 			}
 		});
