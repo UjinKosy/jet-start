@@ -41,8 +41,6 @@ export default class TopView extends JetView {
 						},
 						{
 							type: "wide",
-							paddingY: 10,
-							paddingX: 5,
 							rows: [
 								{$subview: true}
 							]

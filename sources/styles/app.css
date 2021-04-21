@@ -1,3 +1,5 @@
+@import url("./contacts.css");
+
 .app_header.webix_header{
     padding-top: 5px;
     padding-bottom: 5px;
@@ -30,5 +32,3 @@
     font-size: 20px;
     text-align: center;
 }
-
-

@@ -1,0 +1,28 @@
+.contacts{
+    display: flex;
+    align-items: center;
+}
+.contacts_photo{
+    height: 45px;
+    width: 45px;
+    font-size: 40px;
+    border: 2px solid #475466;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 45px;
+    overflow: hidden;
+}
+.contacts_info{
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.contacts_name{
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: -10px;
+}
+.contacts_company{
+    font-size: 12px;
+    font-style: italic;
+}
