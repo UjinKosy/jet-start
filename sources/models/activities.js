@@ -6,7 +6,10 @@ export const activities = new webix.DataCollection({
             obj.DueDate = new Date(obj.DueDate);
         },
         $save:function(obj){ 
-            obj.DueDate = webix.i18n.dateFormatStr(obj.DueDate);
+            const parse = webix.Date.dateToStr("%Y-%m-%d %H:%i");
+            console.log(parse(obj.DueDate))
+            obj.DueDate = parse(obj.DueDate)
+            
         }
     }
 })

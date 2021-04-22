@@ -85,16 +85,15 @@ button{
     align-items: center;
     justify-content: center;
     color: #475466 !important;
-    border: 1px solid #475466 !important;
     border-radius: 5px !important;
     background-color: transparent !important;
 }
-
-button:hover{
+.btn button{
+    border: 1px solid #475466 !important;
+}
+.btn button:hover{
     background-color: #8189a7a2 !important;
 }
-
-
 button .webix_icon_btn{
     font-size: 16px;
     color: #475466 !important;
