@@ -56,3 +56,33 @@
 	font-size:20px;
 	vertical-align:middle;
 }
+
+.full-name {
+    font-size: 30px;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.user-photo {
+    width: 200px;
+    height: 200px;
+}
+
+.user-main-info {
+    display: flex;
+    justify-content: left;
+    height: 500px;
+}
+
+
+.first-info-column,
+.second-info-column {
+    margin-left: 40px;
+}
+
+.user-name {
+    margin-left: 20px;
+}
+
