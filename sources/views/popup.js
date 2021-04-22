@@ -70,6 +70,7 @@ export default class PopupView extends JetView {
 						cols: [
 							{
 								view: "checkbox",
+								name: "State",
 								labelRight: "Completed",
 								localId: "completionCheck"
 							},
@@ -92,7 +93,7 @@ export default class PopupView extends JetView {
 								value: "Cancel",
 								click: () => {
 									webix.confirm({
-										text: "Are you sure that want to close editor?"
+										text: "Are you sure that you want to close editor?"
 									}).then(() => {
 										this.popup.hide();
 										this.form.clear();
@@ -123,8 +124,7 @@ export default class PopupView extends JetView {
 
 	saveActivity() {
 		const validationResult = this.form.validate();
-		const checkboxValue = this.$$("completionCheck").getValue();
-		if (validationResult && checkboxValue) {
+		if (validationResult) {
 			const newItem = this.form.getValues();
 			if (newItem.id) {
 				activities.updateItem(newItem.id, newItem);
@@ -134,6 +134,7 @@ export default class PopupView extends JetView {
 				activities.add(newItem);
 			}
 			this.popup.hide();
+			this.form.clear();
 		}
 	}
 }
