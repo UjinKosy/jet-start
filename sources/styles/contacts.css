@@ -90,6 +90,11 @@ button{
     background-color: transparent !important;
 }
 
+button:hover{
+    background-color: #8189a7a2 !important;
+}
+
+
 button .webix_icon_btn{
     font-size: 16px;
     color: #475466 !important;

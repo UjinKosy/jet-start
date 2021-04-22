@@ -10,7 +10,8 @@ export default class TopView extends JetView {
 			css: "webix_header app_header",
 			data:[
 				{page: ""}
-			]
+			],
+			borderless: false
 		};
 
 		const menu = {
@@ -39,7 +40,6 @@ export default class TopView extends JetView {
 							rows: [menu]
 						},
 						{
-							type: "wide",
 							rows: [
 								{$subview: true}
 							]
