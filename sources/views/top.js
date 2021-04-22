@@ -37,9 +37,5 @@ export default class TopView extends JetView {
 
 	init() {
 		this.use(plugins.Menu, "top:menu");
-		this.$$("top:menu").select("contacts");
-	}
-
-	urlChange() {
 	}
 }

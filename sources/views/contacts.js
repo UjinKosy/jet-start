@@ -12,7 +12,7 @@ export default class ContactsView extends JetView {
 					id: "contactsList",
 					select: true,
 					width: 300,
-					template: "<span class='webix_icon wxi-user'></span> #FullName#",
+					template: "<span class='webix_icon wxi-user'></span> #value#",
 					on: {
 						onAfterSelect: () => {
 							const selectedId = this.list.getSelectedId();

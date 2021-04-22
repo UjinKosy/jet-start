@@ -1,7 +1,9 @@
 import {JetView} from "webix-jet";
 
 import {activities} from "../models/activities";
-import {PopupView} from "./popup";
+import {activitiesTypes} from "../models/activitiesTypes";
+import {contacts} from "../models/contacts";
+import PopupView from "./popup";
 
 export default class ActivitiesView extends JetView {
 	config() {
@@ -17,7 +19,7 @@ export default class ActivitiesView extends JetView {
 							css: "webix_primary",
 							width: 170,
 							click: () => {
-								this.ui(PopupView).showPopupForm();
+								this.popup.showPopup();
 							}
 						},
 						{}
@@ -29,7 +31,9 @@ export default class ActivitiesView extends JetView {
 					select: true,
 					columns: [
 						{
-							id: "State"
+							id: "State",
+							header: "",
+							template: "{common.checkbox()}"
 						},
 						{
 							id: "TypeID",
@@ -37,17 +41,17 @@ export default class ActivitiesView extends JetView {
 								{text: "Activity type"},
 								{content: "selectFilter"}
 							],
-							sort: "int"
+							sort: "int",
+							collection: activitiesTypes
 						},
 						{
 							id: "DueDate",
-							fillspace: true,
 							header: [
 								{text: "Due Date"},
 								{content: "datepickerFilter"}
 							],
-							format: webix.i18n.dateFormatStr,
-							sort: "date"
+							sort: "date",
+							format: webix.i18n.dateFormatStr
 						},
 						{
 							id: "Details",
@@ -64,7 +68,9 @@ export default class ActivitiesView extends JetView {
 								{text: "Contact"},
 								{content: "selectFilter"}
 							],
-							sort: "int"
+							sort: "int",
+							fillspace: true,
+							collection: contacts
 						},
 						{template: "<span class='webix_icon wxi-pencil'></span>"},
 						{template: "<span class='webix_icon wxi-trash'></span>"}
@@ -72,11 +78,14 @@ export default class ActivitiesView extends JetView {
 					onClick: {
 						"wxi-trash": (event, id) => {
 							webix.confirm({
-								text: "Do you want to remove this activity item?"
+								text: "Are you sure that you want to remove this activity item?"
 							}).then(() => {
 								activities.remove(id);
 							});
 							return false;
+						},
+						"wxi-pencil": (event, id) => {
+							this.popup.showPopup(id);
 						}
 					}
 				}
@@ -87,5 +96,6 @@ export default class ActivitiesView extends JetView {
 	init() {
 		this.activities = this.$$("activitiesTable");
 		this.activities.sync(activities);
+		this.popup = this.ui(PopupView);
 	}
 }

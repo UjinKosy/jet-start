@@ -4,15 +4,13 @@ import {activities} from "../models/activities";
 import {activitiesTypes} from "../models/activitiesTypes";
 import {contacts} from "../models/contacts";
 
-
 export default class PopupView extends JetView {
 	config() {
 		const window = {
 			view: "window",
 			localId: "popup",
-			width: 200,
-			height: 200,
 			position: "center",
+			width: 600,
 			body: {
 				view: "form",
 				localId: "popupForm",
@@ -23,16 +21,30 @@ export default class PopupView extends JetView {
 						label: "Details"
 					},
 					{
-						view: "combo",
-						name: "Type",
-						label: "TypeID",
-						options: activitiesTypes
+						view: "richselect",
+						name: "TypeID",
+						label: "Type",
+						required: true,
+						options: activitiesTypes,
+						invalidMessage: "Type should be selected",
+						on: {
+							onItemClick: () => {
+								this.form.clearValidation();
+							}
+						}
 					},
 					{
-						view: "combo",
+						view: "richselect",
 						name: "ContactID",
 						label: "Contact",
-						options: contacts
+						required: true,
+						options: contacts,
+						invalidMessage: "Contact should be selected",
+						on: {
+							onItemClick: () => {
+								this.form.clearValidation();
+							}
+						}
 					},
 					{
 						cols: [
@@ -40,12 +52,53 @@ export default class PopupView extends JetView {
 								view: "datepicker",
 								type: "date",
 								name: "DueDate",
-								label: "Date"
+								label: "Date",
+								timepicker: true,
+								format: webix.i18n.dateFormatStr
 							},
+							{},
 							{
 								view: "datepicker",
+								type: "time",
 								name: "Time",
-								label: "Date"
+								label: "Time",
+								format: webix.i18n.timeFormatStr
+							}
+						]
+					},
+					{
+						cols: [
+							{
+								view: "checkbox",
+								labelRight: "Completed",
+								localId: "completionCheck"
+							},
+							{}
+						]
+					},
+					{
+						cols: [
+							{},
+							{
+								view: "button",
+								localId: "saveButton",
+								value: "Save",
+								click: () => {
+									this.saveActivity();
+								}
+							},
+							{
+								view: "button",
+								value: "Cancel",
+								click: () => {
+									webix.confirm({
+										text: "Are you sure that want to close editor?"
+									}).then(() => {
+										this.popup.hide();
+										this.form.clear();
+										this.form.clearValidation();
+									});
+								}
 							}
 						]
 					}
@@ -53,13 +106,34 @@ export default class PopupView extends JetView {
 			}
 		};
 
-		return {
-			rows: [window, {}]
-		};
+		return window;
 	}
 
 	init() {
-		this.popup = this.$$("popup");
+		this.form = this.$$("popupForm");
+		this.popup = this.getRoot();
+	}
+
+	showPopup(id) {
 		this.popup.show();
+		if (id && activities.exists(id)) {
+			this.form.setValues(activities.getItem(id));
+		}
+	}
+
+	saveActivity() {
+		const validationResult = this.form.validate();
+		const checkboxValue = this.$$("completionCheck").getValue();
+		if (validationResult && checkboxValue) {
+			const newItem = this.form.getValues();
+			if (newItem.id) {
+				activities.updateItem(newItem.id, newItem);
+			}
+
+			else {
+				activities.add(newItem);
+			}
+			this.popup.hide();
+		}
 	}
 }
