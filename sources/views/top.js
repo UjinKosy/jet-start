@@ -3,12 +3,12 @@ import {JetView, plugins} from "webix-jet";
 export default class TopView extends JetView {
 	config() {
 		const header = {
-			view: "template", 
+			view: "template",
 			type: "header",
 			localId: "header",
-			template: "#page#", 
+			template: "#page#",
 			css: "webix_header app_header",
-			data:[
+			data: [
 				{page: ""}
 			],
 			borderless: false
@@ -30,7 +30,7 @@ export default class TopView extends JetView {
 		};
 
 		const ui = {
-			rows:[
+			rows: [
 				header,
 				{
 					cols: [
@@ -44,19 +44,21 @@ export default class TopView extends JetView {
 								{$subview: true}
 							]
 						}
-				]}
-				
+					]}
+
 			]
-			
+
 		};
 		return ui;
 	}
-	init(){
+
+	init() {
 		this.use(plugins.Menu, "top:menu");
 		this.header = this.$$("header");
 	}
-	urlChange(view, url){
-		this.header.data.page = url[1] && url[1].page || "CRM";
+
+	urlChange(view, url) {
+		this.header.data.page = (url[1] && url[1].page) || "CRM";
 		this.header.refresh();
 	}
 }
