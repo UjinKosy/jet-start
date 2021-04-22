@@ -1,15 +1,14 @@
 import {JetView} from "webix-jet";
 
-import {contacts} from "../models/contacts";
-import {statuses} from "../models/statuses";
+import contacts from "../models/contacts";
+import statuses from "../models/statuses";
 
 export default class ContactInfoView extends JetView {
 	config() {
 		const userInfoTemplate = {
 			type: "clean",
 			localId: "userInfo",
-			template: `
-			<h2 class="user-name">#FirstName# #LastName#</h2>
+			template: `<h2 class="user-name">#FirstName# #LastName#</h2>
 			<div class='user-main-info'>
 				<div class="user-photo-area">
 					<img src="/sources/styles/Person.jpg" class="user-photo">
@@ -26,7 +25,6 @@ export default class ContactInfoView extends JetView {
 				<span class='webix_icon mdi mdi-map-marker'></span><span>#Address#</span> 
 				</div>
 			</div>`
-
 		};
 
 		const buttons = {
@@ -75,9 +73,8 @@ export default class ContactInfoView extends JetView {
 			statuses.waitData
 		]).then(() => {
 			const currentId = this.getParam("id") || contacts.getFirstId();
-			if (contacts.exists(currentId)) {
-				const currentItem = contacts.getItem(currentId);
-				this.$$("userInfo").parse(currentItem);
+			if (currentId && contacts.exists(currentId)) {
+				this.$$("userInfo").parse(contacts.getItem(currentId));
 			}
 		});
 	}

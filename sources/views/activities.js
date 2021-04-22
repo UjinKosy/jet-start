@@ -1,8 +1,8 @@
 import {JetView} from "webix-jet";
 
-import {activities} from "../models/activities";
-import {activitiesTypes} from "../models/activitiesTypes";
-import {contacts} from "../models/contacts";
+import activities from "../models/activities";
+import activitiesTypes from "../models/activitiesTypes";
+import contacts from "../models/contacts";
 import PopupView from "./popup";
 
 export default class ActivitiesView extends JetView {
@@ -48,7 +48,7 @@ export default class ActivitiesView extends JetView {
 							id: "DueDate",
 							header: [
 								{text: "Due Date"},
-								{content: "datepickerFilter"}
+								{content: "dateRangeFilter"}
 							],
 							sort: "date",
 							format: webix.i18n.dateFormatStr
@@ -94,8 +94,7 @@ export default class ActivitiesView extends JetView {
 	}
 
 	init() {
-		this.activities = this.$$("activitiesTable");
-		this.activities.sync(activities);
+		this.$$("activitiesTable").sync(activities);
 		this.popup = this.ui(PopupView);
 	}
 }

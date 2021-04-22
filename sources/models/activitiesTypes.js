@@ -1,4 +1,4 @@
-export const activitiesTypes = new webix.DataCollection({
+const activitiesTypes = new webix.DataCollection({
 	url: "http://localhost:8096/api/v1/activitytypes/",
 	save: "rest->http://localhost:8096/api/v1/activitytypes/",
 	scheme: {
@@ -10,3 +10,5 @@ export const activitiesTypes = new webix.DataCollection({
 		}
 	}
 });
+
+export default activitiesTypes;

@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
 
-import {contacts} from "../models/contacts";
+import contacts from "../models/contacts";
 import ContactInfoView from "./contactInfo";
 
 export default class ContactsView extends JetView {
@@ -15,8 +15,7 @@ export default class ContactsView extends JetView {
 					template: "<span class='webix_icon wxi-user'></span> #value#",
 					on: {
 						onAfterSelect: () => {
-							const selectedId = this.list.getSelectedId();
-							this.setUrlParam(selectedId);
+							this.setUrlParam(this.list.getSelectedId());
 						}
 					}
 				}
@@ -35,7 +34,7 @@ export default class ContactsView extends JetView {
 		contacts.waitData.then(() => {
 			const id = this.getParam("id") || contacts.getFirstId();
 
-			if (contacts.exists(id)) {
+			if (id && contacts.exists(id)) {
 				this.list.select(id);
 			}
 
@@ -46,6 +45,6 @@ export default class ContactsView extends JetView {
 	}
 
 	setUrlParam(selectedId) {
-		this.getSubView().setParam("id", selectedId, true);
+		this.setParam("id", selectedId, true);
 	}
 }

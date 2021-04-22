@@ -1,14 +1,18 @@
 import {JetView} from "webix-jet";
 
-import {activities} from "../models/activities";
-import {activitiesTypes} from "../models/activitiesTypes";
-import {contacts} from "../models/contacts";
+import activities from "../models/activities";
+import activitiesTypes from "../models/activitiesTypes";
+import contacts from "../models/contacts";
 
 export default class PopupView extends JetView {
 	config() {
 		const window = {
 			view: "window",
 			localId: "popup",
+			head: {
+				localId: "header",
+				template: "#headerTemplate#"
+			},
 			position: "center",
 			width: 600,
 			body: {
@@ -53,7 +57,6 @@ export default class PopupView extends JetView {
 								type: "date",
 								name: "DueDate",
 								label: "Date",
-								timepicker: true,
 								format: webix.i18n.dateFormatStr
 							},
 							{},
@@ -71,8 +74,7 @@ export default class PopupView extends JetView {
 							{
 								view: "checkbox",
 								name: "State",
-								labelRight: "Completed",
-								localId: "completionCheck"
+								labelRight: "Completed"
 							},
 							{}
 						]
@@ -83,7 +85,6 @@ export default class PopupView extends JetView {
 							{
 								view: "button",
 								localId: "saveButton",
-								value: "Save",
 								click: () => {
 									this.saveActivity();
 								}
@@ -116,10 +117,20 @@ export default class PopupView extends JetView {
 	}
 
 	showPopup(id) {
-		this.popup.show();
 		if (id && activities.exists(id)) {
 			this.form.setValues(activities.getItem(id));
+			const headerTemplate = "Edit activity";
+			this.$$("saveButton").setValue("Save");
+			this.$$("header").setValues({headerTemplate});
 		}
+
+		else {
+			const headerTemplate = "Add activity";
+			this.$$("saveButton").setValue("Add");
+			this.$$("header").setValues({headerTemplate});
+		}
+
+		this.popup.show();
 	}
 
 	saveActivity() {
